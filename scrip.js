@@ -1,46 +1,59 @@
-//let menuButton = $(".menu__button")
-//let variable = getComputedStyle(':root').getPropertyValue('--standartCol')
-//menuButton.width = menuButton.style.width
-//let menuButtonWidth = menuButton.innerWidth
 let nav = $("nav")
 let menuButton = $(".menu__button")
 
-menuButton.on('click', function() {
-    let buttonWidth = menuButton.outerWidth() // Используем outerWidth для учета padding и border
-    let navWidth = nav.outerWidth()
+let buttonWidth = menuButton.outerWidth() * 2 // Используем outerWidth для учета padding и border
+let navWidth = nav.outerWidth()
+let condition = true
+nav.css({
+    width: buttonWidth + 'px',
+})
 
+function menuOpen() {
     anime({
         targets: '.menu__button',
         width: '100%',
-        duration: 2000,
+        height: 100,
+        borderRadius: 0,
+        duration: 500,
+        easing: 'easeInOutQuad',
+    })
+
+    anime({
+        targets: 'nav',
+        top: 100,
+        duration: 500,
+        easing: 'easeInOutQuad',
+        delay: 500,
+    })
+
+    condition = false
+}
+
+function menuClose() {
+    anime({
+        targets: '.menu__button',
+        width: '50%',
+        height: 50,
+        borderRadius: 10,
+        duration: 500,
+        easing: 'easeInOutQuad',
+        delay: 500,
     })
     
     anime({
         targets: 'nav',
-        //width: menuButton.outerWidth() + 'px',
-        right: 0,
-        duration: 2000,
+        top: -205,
+        duration: 500,
+        easing: 'easeInOutQuad',
     })
-    // anime({
-    //     targets: ['.menu__button', 'nav'],
-    //     duration: 1000,
-    //     easing: 'linear',
-    //     direction: 'alternate', // Добавлено для обратной анимации
-    //     update: function(anim) {
-    //         // Обновление ширины nav во время анимации
-    //         nav.width(anim.animatables[0].target.offsetWidth)
-    //     },
-    //     complete: function(){
-    //         // Возвращаем nav к изначальному состоянию после завершения
-    //         nav.width(navWidth)
-    //         //Можно и кнопку вернуть
-    //         menuButton.width(buttonWidth)
-    //     },
-    //     autoplay: true,
-    //     targets: ['.menu__button', 'nav'],
-    //     width: [
-    //         {value: '100%', duration: 500},
-    //         {value: buttonWidth, duration: 500}
-    //     ],
-    // })
+
+    condition = true
+}
+
+menuButton.on('click', function() {
+    if(condition){
+        menuOpen()
+    } else {
+        menuClose()
+    }
 })
