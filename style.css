@@ -25,6 +25,8 @@ header{
     grid-template-columns: 0.2fr 5fr 1fr;
     align-items: center;
     justify-content: space-evenly;
+    position: sticky;
+    z-index: 1;
     >.logo{
         font-size: 39px;
     }
@@ -48,14 +50,11 @@ header{
     justify-content: end;
     >nav{
         background: var(--standartCol);
-        width: 300px;
-        right: -300px;
+        top: -200px;
         position: absolute;
         >ul{
             list-style-type: none;
             margin: 0;
-            float: right;
-            /* opacity: 0; */
         }
     }
 }
